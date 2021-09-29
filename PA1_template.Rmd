@@ -1,6 +1,13 @@
-# Reproducible Research - Course Project 1
-### Author: Boyd C
-### Date: September 27, 2021
+---
+title: "Reproducible Research - Course Project 1"
+author: "Boyd C"
+date: "29/09/2021"
+output: html_document
+---
+
+```{r global_options}
+knitr::opts_chunk$set(fig.path='course5/')
+```
 
 ## Loading and preprocessing the data
 
@@ -26,6 +33,10 @@ required Histogram
 ```{r}
 totalstepsperday <- with(activity, tapply(steps, date, sum))
 hist(totalstepsperday, breaks = 15, col = "green", xlab = "Steps", main = "Histogram of Total Steps per day")
+dev.copy(png, file = "course5/Histogram of Total Steps per day.png", height = 720, width = 720)
+hist(totalstepsperday, breaks = 15, col = "green", xlab = "Steps", main = "Histogram of Total Steps per day")
+dev.off()
+
 ```
 
 ### Mean and median number of steps taken each day
@@ -46,6 +57,9 @@ avestepsperinterval <- aggregate(activity$steps,list(activity$interval), FUN=mea
 colnames(avestepsperinterval) <- c("Interval", "Ave.Steps")
 avestepsperinterval$Ave.Steps <- round(avestepsperinterval$Ave.Steps, digits = 2)
 plot(avestepsperinterval$Ave.Steps, type = "l", col = "blue", xlab = "Interval", ylab = "Average Steps", main = "Plot depicting Average Steps taken over Interval", lwd = 2)
+dev.copy(png, file = "course5/Time Series Plot - Average Steps taken over Interval.png", height = 720, width = 720)
+plot(avestepsperinterval$Ave.Steps, type = "l", col = "blue", xlab = "Interval", ylab = "Average Steps", main = "Plot depicting Average Steps taken over Interval", lwd = 2)
+dev.off()
 ```
 
 ### The 5-minute interval that, on average, contains the maximum number of steps
@@ -86,6 +100,9 @@ Calculate the total number of steps taken per day using the filled dataframe and
 ```{r}
 totalstepsperday.filled <- with(filled.activity, tapply(steps, date, sum))
 hist(totalstepsperday.filled, breaks = 15, col = "yellow", xlab = "Steps", main = "Histogram of Total Steps per day after filling")
+dev.copy(png, file = "course5/Histogram of Total Steps per day after filling.png", height = 720, width = 720)
+hist(totalstepsperday.filled, breaks = 15, col = "yellow", xlab = "Steps", main = "Histogram of Total Steps per day after filling")
+dev.off()
 ```
 
 ### Mean and median of the total number of steps taken per day after filling
@@ -120,6 +137,11 @@ par(mar = c(4, 4, 2, 1))
 with(avestepsoverintervelandwday[avestepsoverintervelandwday$WDay == "weekday",], plot(Interval, Ave.Steps, col = "green", type = "l", lwd = 1.5, ylab = "Average Steps", main = "Average Steps per time interval: weekday vs weekend"))
 legend("topright", c("weekday", "weekend"), text.col = c("green", "blue"))
 with(avestepsoverintervelandwday[avestepsoverintervelandwday$WDay == "weekend",], plot(Interval, Ave.Steps, col = "blue", type = "l", lwd = 1.5, ylab = "Average Steps"))
+dev.copy(png, file = "course5/Average Steps per time interval - weekday vs weekend.png", height = 720, width = 720)
+with(avestepsoverintervelandwday[avestepsoverintervelandwday$WDay == "weekday",], plot(Interval, Ave.Steps, col = "green", type = "l", lwd = 1.5, ylab = "Average Steps", main = "Average Steps per time interval: weekday vs weekend"))
+legend("topright", c("weekday", "weekend"), text.col = c("green", "blue"))
+with(avestepsoverintervelandwday[avestepsoverintervelandwday$WDay == "weekend",], plot(Interval, Ave.Steps, col = "blue", type = "l", lwd = 1.5, ylab = "Average Steps"))
+dev.off()
 ```
 
 The End
